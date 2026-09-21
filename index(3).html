@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#1a0736" />
+    <title>꼬치의 달인 주문</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section id="menu-screen" class="screen menu-screen" aria-label="메뉴 선택">
+        <div class="photo-banner">
+          <img class="camera-badge" src="assets/camera-badge.png" alt="" />
+        </div>
+
+        <section class="menu-content" aria-labelledby="menu-title">
+          <div class="menu-inner">
+            <h1 id="menu-title">음식 메뉴</h1>
+            <div id="menu-list" class="menu-list"></div>
+          </div>
+        </section>
+
+        <aside class="order-bar">
+          <div class="order-total">
+            <span>총 주문금액</span>
+            <strong>₩ <span id="total-price">12,000</span></strong>
+          </div>
+          <button id="order-button" class="order-button" type="button">
+            <span>주문하기</span>
+            <img src="assets/arrow-order.png" alt="" />
+          </button>
+        </aside>
+      </section>
+
+      <section id="order-sheet" class="order-sheet" aria-labelledby="sheet-title" hidden>
+        <button id="sheet-backdrop" class="sheet-backdrop" type="button" aria-label="주문서 닫기"></button>
+        <div class="sheet-panel" role="dialog" aria-modal="true" aria-labelledby="sheet-title">
+          <div class="sheet-handle"></div>
+          <header class="sheet-header">
+            <div>
+              <h1 id="sheet-title">주문서 작성</h1>
+              <p>주문자 정보를 입력해 주세요!</p>
+            </div>
+            <button id="sheet-close-button" class="sheet-close" type="button" aria-label="주문서 닫기">✕</button>
+          </header>
+
+          <section class="receipt" aria-label="주문 영수증">
+            <img class="receipt-edge" src="assets/ticket-top.png" alt="" />
+            <div class="receipt-paper">
+              <h2>MIS 꼬치의 달인 MIS</h2>
+              <div class="stars">* * * * * * * * * * * * * * * * * * * *</div>
+              <h3>ORDER RECEIPT / 주문 영수증</h3>
+              <div class="stars">* * * * * * * * * * * * * * * * * * * *</div>
+              <div class="receipt-columns">
+                <span>Description / 품목</span>
+                <span>Price / 금액</span>
+              </div>
+              <div id="review-items" class="receipt-items"></div>
+              <div class="stars">* * * * * * * * * * * * * * * * * * * *</div>
+              <div class="receipt-total">
+                <span>Total / 총 결제예정금액</span>
+                <strong>₩ <span id="review-total">0</span></strong>
+              </div>
+              <div class="stars">* * * * * * * * * * * * * * * * * * * *</div>
+              <p class="thanks">감사합니다.</p>
+              <div class="barcode" aria-hidden="true"></div>
+            </div>
+            <img class="receipt-edge" src="assets/ticket-bottom.png" alt="" />
+          </section>
+
+          <form id="customer-form" class="customer-form" novalidate>
+            <label>
+              <span>주문자 성함 <b>*</b></span>
+              <input id="customer-name" name="name" type="text" autocomplete="name" placeholder="예: 홍길동" required />
+            </label>
+            <label>
+              <span>연락처 (휴대폰) <b>*</b></span>
+              <input id="customer-phone" name="phone" type="tel" inputmode="numeric" autocomplete="tel" placeholder="010-0000-0000" required />
+            </label>
+            <label>
+              <span>요청사항 (선택)</span>
+              <input id="customer-request" name="request" type="text" placeholder="예: 바삭하게 튀겨주세요" />
+            </label>
+            <p id="form-error" class="form-error" role="alert"></p>
+            <div class="sheet-actions">
+              <button id="add-more-button" class="add-more-button" type="button">더 담기</button>
+              <button id="submit-order-button" class="submit-button" type="submit">
+                <span>주문 제출하기</span>
+                <img src="assets/arrow-submit.png" alt="" />
+              </button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <section id="success-screen" class="screen success-screen" aria-labelledby="success-title" hidden>
+        <div class="success-hero">
+          <div class="check-badge"><img src="assets/check.png" alt="" /></div>
+          <h1 id="success-title">주문이 접수되었습니다</h1>
+          <section class="order-details">
+            <h2>ORDER DETAILS</h2>
+            <div><span>주문번호</span><strong id="order-number">#MIS-0920-01</strong></div>
+            <div><span>결제 예정금액</span><strong class="pink">₩ <span id="success-total">21,500</span></strong></div>
+            <div><span>연락처</span><strong id="success-phone">010-0000-0000</strong></div>
+            <p>관리자 전달 완료</p>
+          </section>
+        </div>
+
+        <section class="account-guide">
+          <h2>아래 계좌로 송금해주세요</h2>
+          <div class="account-card">
+            <div><span></span><strong>농협 은행</strong></div>
+            <div><span></span><strong id="account-number">3561368790623</strong></div>
+            <button id="copy-account-button" type="button">계좌 번호 복사하기</button>
+          </div>
+        </section>
+
+        <div class="success-actions">
+          <button id="new-order-button" type="button">새 주문 시작하기</button>
+          <button id="review-again-button" type="button">주문 내역 다시 보기</button>
+        </div>
+      </section>
+    </main>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    <script src="script.js"></script>
+  </body>
+</html>
